@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\backend",
+    "\\backend\\Models"
   ],
+  "SelectedNode": "\\backend\\Models\\User.cs",
   "PreviewInSolutionExplorer": false
 }
