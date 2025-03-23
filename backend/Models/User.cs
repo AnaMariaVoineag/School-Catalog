@@ -7,8 +7,7 @@ public class User
     public DateTime LastLogin { get; set; }
     public bool IsActive { get; set; }
 
-    public void Login() {}
-    public void Logout() {}
-    public void ResetPassword() {}
-    public void UpdateProfile() {}
+    // Navigation Properties
+    public Teacher Teacher { get; set; }
+    public Student Student { get; set; }
 }
