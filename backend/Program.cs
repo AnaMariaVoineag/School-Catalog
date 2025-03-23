@@ -1,9 +1,11 @@
+using System;
 using System.Runtime.InteropServices;
 using backend;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddDbContext<MariaDbContext>(opt =>
 {
     var conString = builder.Configuration.GetConnectionString("MariaDbConnectionString");
@@ -12,6 +14,12 @@ builder.Services.AddDbContext<MariaDbContext>(opt =>
 
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
+
+app.MapGet("/", async (MariaDbContext db) =>
+{
+    //just testing
+    var usersCount = await db.Users.CountAsync();
+    return $"user count={usersCount}";
+});
 
 app.Run();
