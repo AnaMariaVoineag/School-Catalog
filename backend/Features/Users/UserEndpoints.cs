@@ -27,8 +27,7 @@ namespace backend.Features.Users
 
                 if (user == null)
                     return Results.NotFound();
-
-                return Results.Ok(new { user.ID, user.Name, user.Email, user.LastLogin, user.IsActive });
+                return Results.Ok(new { user.ID, user.Name, user.Email, user.LastLogin, user.IsActive, user.Role });
             });
 
             // Update user endpoint
