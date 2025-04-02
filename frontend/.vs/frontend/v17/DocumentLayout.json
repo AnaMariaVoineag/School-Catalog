@@ -3,8 +3,48 @@
   "WorkspaceRootPath": "C:\\Users\\tilic\\Desktop\\app\\School-Catalog\\frontend\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{8B7393A5-7993-4895-B301-3933F1018DD4}|frontend\\frontend.csproj|c:\\users\\tilic\\desktop\\app\\school-catalog\\frontend\\frontend\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8B7393A5-7993-4895-B301-3933F1018DD4}|frontend\\frontend.csproj|solutionrelative:frontend\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B7393A5-7993-4895-B301-3933F1018DD4}|frontend\\frontend.csproj|c:\\users\\tilic\\desktop\\app\\school-catalog\\frontend\\frontend\\components\\app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8B7393A5-7993-4895-B301-3933F1018DD4}|frontend\\frontend.csproj|solutionrelative:frontend\\components\\app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B7393A5-7993-4895-B301-3933F1018DD4}|frontend\\frontend.csproj|c:\\users\\tilic\\desktop\\app\\school-catalog\\frontend\\frontend\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8B7393A5-7993-4895-B301-3933F1018DD4}|frontend\\frontend.csproj|solutionrelative:frontend\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B7393A5-7993-4895-B301-3933F1018DD4}|frontend\\frontend.csproj|c:\\users\\tilic\\desktop\\app\\school-catalog\\frontend\\frontend\\components\\routes.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8B7393A5-7993-4895-B301-3933F1018DD4}|frontend\\frontend.csproj|solutionrelative:frontend\\components\\routes.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B7393A5-7993-4895-B301-3933F1018DD4}|frontend\\frontend.csproj|c:\\users\\tilic\\desktop\\app\\school-catalog\\frontend\\frontend\\components\\pages\\error.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8B7393A5-7993-4895-B301-3933F1018DD4}|frontend\\frontend.csproj|solutionrelative:frontend\\components\\pages\\error.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B7393A5-7993-4895-B301-3933F1018DD4}|frontend\\frontend.csproj|c:\\users\\tilic\\desktop\\app\\school-catalog\\frontend\\frontend\\components\\pages\\weather.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8B7393A5-7993-4895-B301-3933F1018DD4}|frontend\\frontend.csproj|solutionrelative:frontend\\components\\pages\\weather.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B7393A5-7993-4895-B301-3933F1018DD4}|frontend\\frontend.csproj|c:\\users\\tilic\\desktop\\app\\school-catalog\\frontend\\frontend\\components\\pages\\counter.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8B7393A5-7993-4895-B301-3933F1018DD4}|frontend\\frontend.csproj|solutionrelative:frontend\\components\\pages\\counter.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{8B7393A5-7993-4895-B301-3933F1018DD4}|frontend\\frontend.csproj|c:\\users\\tilic\\desktop\\app\\school-catalog\\frontend\\frontend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8B7393A5-7993-4895-B301-3933F1018DD4}|frontend\\frontend.csproj|solutionrelative:frontend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B7393A5-7993-4895-B301-3933F1018DD4}|frontend\\frontend.csproj|c:\\users\\tilic\\desktop\\app\\school-catalog\\frontend\\frontend\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8B7393A5-7993-4895-B301-3933F1018DD4}|frontend\\frontend.csproj|solutionrelative:frontend\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B7393A5-7993-4895-B301-3933F1018DD4}|frontend\\frontend.csproj|c:\\users\\tilic\\desktop\\app\\school-catalog\\frontend\\frontend\\components\\_imports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8B7393A5-7993-4895-B301-3933F1018DD4}|frontend\\frontend.csproj|solutionrelative:frontend\\components\\_imports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B7393A5-7993-4895-B301-3933F1018DD4}|frontend\\frontend.csproj|c:\\users\\tilic\\desktop\\app\\school-catalog\\frontend\\frontend\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{8B7393A5-7993-4895-B301-3933F1018DD4}|frontend\\frontend.csproj|solutionrelative:frontend\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,19 +54,149 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MainLayout.razor",
+              "DocumentMoniker": "C:\\Users\\tilic\\Desktop\\app\\School-Catalog\\frontend\\frontend\\Components\\Layout\\MainLayout.razor",
+              "RelativeDocumentMoniker": "frontend\\Components\\Layout\\MainLayout.razor",
+              "ToolTip": "C:\\Users\\tilic\\Desktop\\app\\School-Catalog\\frontend\\frontend\\Components\\Layout\\MainLayout.razor",
+              "RelativeToolTip": "frontend\\Components\\Layout\\MainLayout.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-23T13:10:13.134Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Counter.razor",
+              "DocumentMoniker": "C:\\Users\\tilic\\Desktop\\app\\School-Catalog\\frontend\\frontend\\Components\\Pages\\Counter.razor",
+              "RelativeDocumentMoniker": "frontend\\Components\\Pages\\Counter.razor",
+              "ToolTip": "C:\\Users\\tilic\\Desktop\\app\\School-Catalog\\frontend\\frontend\\Components\\Pages\\Counter.razor",
+              "RelativeToolTip": "frontend\\Components\\Pages\\Counter.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-23T12:45:46.187Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Routes.razor",
+              "DocumentMoniker": "C:\\Users\\tilic\\Desktop\\app\\School-Catalog\\frontend\\frontend\\Components\\Routes.razor",
+              "RelativeDocumentMoniker": "frontend\\Components\\Routes.razor",
+              "ToolTip": "C:\\Users\\tilic\\Desktop\\app\\School-Catalog\\frontend\\frontend\\Components\\Routes.razor",
+              "RelativeToolTip": "frontend\\Components\\Routes.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-23T12:45:39.011Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "NavMenu.razor",
+              "DocumentMoniker": "C:\\Users\\tilic\\Desktop\\app\\School-Catalog\\frontend\\frontend\\Components\\Layout\\NavMenu.razor",
+              "RelativeDocumentMoniker": "frontend\\Components\\Layout\\NavMenu.razor",
+              "ToolTip": "C:\\Users\\tilic\\Desktop\\app\\School-Catalog\\frontend\\frontend\\Components\\Layout\\NavMenu.razor",
+              "RelativeToolTip": "frontend\\Components\\Layout\\NavMenu.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-23T12:31:47.387Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "App.razor",
+              "DocumentMoniker": "C:\\Users\\tilic\\Desktop\\app\\School-Catalog\\frontend\\frontend\\Components\\App.razor",
+              "RelativeDocumentMoniker": "frontend\\Components\\App.razor",
+              "ToolTip": "C:\\Users\\tilic\\Desktop\\app\\School-Catalog\\frontend\\frontend\\Components\\App.razor",
+              "RelativeToolTip": "frontend\\Components\\App.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-23T12:30:48.158Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\tilic\\Desktop\\app\\School-Catalog\\frontend\\frontend\\Program.cs",
               "RelativeDocumentMoniker": "frontend\\Program.cs",
               "ToolTip": "C:\\Users\\tilic\\Desktop\\app\\School-Catalog\\frontend\\frontend\\Program.cs",
               "RelativeToolTip": "frontend\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAlAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAgAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-06T11:41:52.092Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Error.razor",
+              "DocumentMoniker": "C:\\Users\\tilic\\Desktop\\app\\School-Catalog\\frontend\\frontend\\Components\\Pages\\Error.razor",
+              "RelativeDocumentMoniker": "frontend\\Components\\Pages\\Error.razor",
+              "ToolTip": "C:\\Users\\tilic\\Desktop\\app\\School-Catalog\\frontend\\frontend\\Components\\Pages\\Error.razor",
+              "RelativeToolTip": "frontend\\Components\\Pages\\Error.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-23T12:45:49.546Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Home.razor",
+              "DocumentMoniker": "C:\\Users\\tilic\\Desktop\\app\\School-Catalog\\frontend\\frontend\\Components\\Pages\\Home.razor",
+              "RelativeDocumentMoniker": "frontend\\Components\\Pages\\Home.razor",
+              "ToolTip": "C:\\Users\\tilic\\Desktop\\app\\School-Catalog\\frontend\\frontend\\Components\\Pages\\Home.razor",
+              "RelativeToolTip": "frontend\\Components\\Pages\\Home.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-23T12:30:59.954Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Weather.razor",
+              "DocumentMoniker": "C:\\Users\\tilic\\Desktop\\app\\School-Catalog\\frontend\\frontend\\Components\\Pages\\Weather.razor",
+              "RelativeDocumentMoniker": "frontend\\Components\\Pages\\Weather.razor",
+              "ToolTip": "C:\\Users\\tilic\\Desktop\\app\\School-Catalog\\frontend\\frontend\\Components\\Pages\\Weather.razor",
+              "RelativeToolTip": "frontend\\Components\\Pages\\Weather.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-23T12:31:14.564Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "_Imports.razor",
+              "DocumentMoniker": "C:\\Users\\tilic\\Desktop\\app\\School-Catalog\\frontend\\frontend\\Components\\_Imports.razor",
+              "RelativeDocumentMoniker": "frontend\\Components\\_Imports.razor",
+              "ToolTip": "C:\\Users\\tilic\\Desktop\\app\\School-Catalog\\frontend\\frontend\\Components\\_Imports.razor",
+              "RelativeToolTip": "frontend\\Components\\_Imports.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-23T13:42:35.505Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\tilic\\Desktop\\app\\School-Catalog\\frontend\\frontend\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "frontend\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\tilic\\Desktop\\app\\School-Catalog\\frontend\\frontend\\Properties\\launchSettings.json",
+              "RelativeToolTip": "frontend\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-03-23T12:00:18.045Z",
               "EditorCaption": ""
             }
           ]
