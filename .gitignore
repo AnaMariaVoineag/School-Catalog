@@ -1,3 +1,8 @@
+# frontend
+frontend/.vs
+frontend/frontend/bin/
+frontend/frontend/obj/
+
 *.swp
 *.*~
 project.lock.json
