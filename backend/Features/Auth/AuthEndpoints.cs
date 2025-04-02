@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
-using static backend.Features.Users.UserDto;
-using System.Security.Claims;
+﻿using backend.Data;
+using FluentValidation;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using static backend.Features.Auth.AuthDto;
-using backend.Data;
-
 
 namespace backend.Features.Auth
 {
@@ -12,70 +10,52 @@ namespace backend.Features.Auth
     {
         public static WebApplication MapAuthEndpoints(this WebApplication app)
         {
-            // Registration Endpoint
+            // Input validation with FluentValidation
             app.MapPost("/api/users/register", async (
                 RegistrationDto req,
                 MariaDbContext db,
                 IPasswordHasher<User> passwordHasher,
-                IConfiguration config) =>
+                IValidator<RegistrationDto> validator) =>
             {
-                if (await db.Users.AnyAsync(u => u.Email == req.Email))
-                    return Results.Conflict("User already exists");
+                // Manual validation
+                var validationResult = await validator.ValidateAsync(req);
+                if (!validationResult.IsValid)
+                    return Results.ValidationProblem(validationResult.ToDictionary());
+
+                // SQL Injection protection: Parameterized queries via EF Core
+                bool userExists = await db.Users
+                    .AsNoTracking()
+                    .AnyAsync(u => u.Email == req.Email); // Safe
+
+                if (userExists)
+                    return Results.Conflict("User exists");
 
                 var user = new User
                 {
-                    Name = req.Name,
-                    Email = req.Email,
-                    IsActive = true,
-                    LastLogin = DateTime.UtcNow
+                    Name = req.Name.Trim(), // Input sanitization
+                    Email = req.Email.ToLower().Trim(),
+                    Password = passwordHasher.HashPassword(null!, req.Password),
+                    Role = "Student" // Default role
                 };
 
-                user.Password = passwordHasher.HashPassword(user, req.Password);
-
                 db.Users.Add(user);
-                await db.SaveChangesAsync();
+                await db.SaveChangesAsync(); // Safe: EF Core uses parameterization
 
-                var token = Utils.GenerateJwtToken(user, config["Jwt:Key"]!, config["Jwt:Issuer"]!);
-
-                return Results.Created($"/api/users/{user.ID}", new
-                {
-                    user.ID,
-                    user.Name,
-                    user.Email,
-                    Token = token
-                });
+                return Results.Created("", new { user.ID, user.Email });
             });
-            // Login Endpoint
-            app.MapPost("/api/users/login", async (
-                LoginDto req,
-                MariaDbContext db,
-                IPasswordHasher<User> passwordHasher,
-                IConfiguration config) =>
-            {
-                var user = await db.Users.FirstOrDefaultAsync(u => u.Email == req.Email);
 
-                if (user == null)
-                    return Results.Unauthorized();
-
-                var passwordVerificationResult = passwordHasher.VerifyHashedPassword(user, user.Password, req.Password);
-
-                if (passwordVerificationResult == PasswordVerificationResult.Failed)
-                    return Results.Unauthorized();
-
-                user.LastLogin = DateTime.UtcNow;
-                await db.SaveChangesAsync();
-
-                var token = Utils.GenerateJwtToken(user, config["Jwt:Key"]!, config["Jwt:Issuer"]!);
-
-                return Results.Ok(new
-                {
-                    Token = token,
-                    user.ID,
-                    user.Name,
-                    user.Email
-                });
-            });
             return app;
+        }
+    }
+
+    // FluentValidation rules
+    public class RegistrationValidator : AbstractValidator<RegistrationDto>
+    {
+        public RegistrationValidator()
+        {
+            RuleFor(x => x.Name).NotEmpty().Length(2, 50);
+            RuleFor(x => x.Email).NotEmpty().EmailAddress();
+            RuleFor(x => x.Password).NotEmpty().MinimumLength(8);
         }
     }
 }
