@@ -1,5 +1,0 @@
-wwwroot\app.css
-wwwroot\assets\logo.png
-wwwroot\bootstrap\bootstrap.min.css
-wwwroot\bootstrap\bootstrap.min.css.map
-wwwroot\favicon.png
