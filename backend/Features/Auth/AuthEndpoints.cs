@@ -13,7 +13,7 @@ namespace backend.Features.Auth
         public static WebApplication MapAuthEndpoints(this WebApplication app)
         {
             // Registration Endpoint
-            app.MapPost("/api/users/register", async (
+            app.MapPost("/api/auth/register", async (
                 RegistrationDto req,
                 MariaDbContext db,
                 IPasswordHasher<User> passwordHasher,
@@ -22,17 +22,36 @@ namespace backend.Features.Auth
                 if (await db.Users.AnyAsync(u => u.Email == req.Email))
                     return Results.Conflict("User already exists");
 
+                if (req.Role != "student" &&  req.Role != "teacher")
+                {
+                    return Results.BadRequest("Invalid UserType. Must be 'teacher' or 'student'.");
+                }
                 var user = new User
                 {
                     Name = req.Name,
                     Email = req.Email,
                     IsActive = true,
-                    LastLogin = DateTime.UtcNow
+                    LastLogin = DateTime.UtcNow,
+                    Role = req.Role
                 };
 
                 user.Password = passwordHasher.HashPassword(user, req.Password);
 
                 db.Users.Add(user);
+                await db.SaveChangesAsync();
+
+                // Create either a Teacher or Student record
+                if (req.Role == "teacher")
+                {
+                    var teacher = new Teacher { User = user };
+                    db.Teachers.Add(teacher);
+                }
+                else if (req.Role == "student")
+                {
+                    var student = new Student { User = user };
+                    db.Students.Add(student);
+          
+                }
                 await db.SaveChangesAsync();
 
                 var token = Utils.GenerateJwtToken(user, config["Jwt:Key"]!, config["Jwt:Issuer"]!);
@@ -42,11 +61,13 @@ namespace backend.Features.Auth
                     user.ID,
                     user.Name,
                     user.Email,
-                    Token = token
+                    user.Role,
+                    Token = token,
+
                 });
             });
             // Login Endpoint
-            app.MapPost("/api/users/login", async (
+            app.MapPost("/api/auth/login", async (
                 LoginDto req,
                 MariaDbContext db,
                 IPasswordHasher<User> passwordHasher,
@@ -69,10 +90,7 @@ namespace backend.Features.Auth
 
                 return Results.Ok(new
                 {
-                    Token = token,
-                    user.ID,
-                    user.Name,
-                    user.Email
+                    Token = token
                 });
             });
             return app;
