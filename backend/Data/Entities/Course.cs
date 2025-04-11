@@ -7,7 +7,6 @@ public class Course
     public DateTime EndDate { get; set; }
 
     // Foreign Key to Teacher
-    public int TeacherId { get; set; }
     public Teacher Teacher { get; set; }
 
     // Navigation Properties
