@@ -8,9 +8,6 @@ public class Grade
     public string AssignedBy { get; set; }
 
     // Foreign Keys
-    public int StudentId { get; set; }
     public Student Student { get; set; }
-    
-    public int CourseId { get; set; }
     public Course Course { get; set; }
 }
