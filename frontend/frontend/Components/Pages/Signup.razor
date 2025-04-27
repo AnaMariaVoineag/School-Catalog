@@ -1,4 +1,152 @@
 ﻿@page "/signup"
+@using System.Net.Http.Json
+@using System.Text.Json
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
 
 <PageTitle>Sign Up</PageTitle>
 
+<RadzenStack Gap="0" class="rz-my-12 rz-mx-auto rz-border-radius-6 rz-shadow-10" Style="width: 100%; max-width: 400px; overflow: hidden;">
+    <RadzenCard class="rz-shadow-0 rz-border-radius-0 rz-background-color-info rz-p-12" style="text-align: center;">
+        <RadzenText TextStyle="TextStyle.DisplayH3" TagName="TagName.H2" class="rz-color-white rz-mb-0">Register</RadzenText>
+    </RadzenCard>
+    <RadzenCard class="rz-shadow-0 rz-p-12">
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="rz-background-color-danger-lighter rz-p-3 rz-mb-4 rz-border-radius-4">
+                <RadzenText TextStyle="TextStyle.Body1" class="rz-color-danger rz-mb-0">@errorMessage</RadzenText>
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(successMessage))
+        {
+            <div class="rz-background-color-success-lighter rz-p-3 rz-mb-4 rz-border-radius-4">
+                <RadzenText TextStyle="TextStyle.Body1" class="rz-color-success rz-mb-0">@successMessage</RadzenText>
+            </div>
+        }
+        <RadzenTemplateForm TItem="RegistrationModel" Data="@registrationModel" Submit="@HandleRegistration">
+            <RadzenStack Gap="1rem">
+                <RadzenFormField Text="Name" Variant="Variant.Filled">
+                    <RadzenTextBox @bind-Value="@registrationModel.Name" Name="Name" />
+                    <RadzenRequiredValidator Component="Name" Text="Name is required" />
+                </RadzenFormField>
+
+                <RadzenFormField Text="Email" Variant="Variant.Filled">
+                    <RadzenTextBox @bind-Value="@registrationModel.Email" Name="Email" />
+                    <RadzenRequiredValidator Component="Email" Text="Email is required" />
+                    <RadzenEmailValidator Component="Email" Text="Please enter a valid email" />
+                </RadzenFormField>
+
+                <RadzenFormField Text="Password" Variant="Variant.Filled">
+                    <RadzenPassword @bind-Value="@registrationModel.Password" Name="Password" />
+                    <RadzenRequiredValidator Component="Password" Text="Password is required" />
+                    <RadzenLengthValidator Component="Password" Min="6" Text="Password must be at least 6 characters" />
+                </RadzenFormField>
+
+                <RadzenFormField Text="Confirm Password" Variant="Variant.Filled">
+                    <RadzenPassword @bind-Value="@registrationModel.ConfirmPassword" Name="ConfirmPassword" />
+                    <RadzenRequiredValidator Component="ConfirmPassword" Text="Confirm Password is required" />
+                    <RadzenCompareValidator Component="ConfirmPassword" Value="@registrationModel.Password" Text="Passwords must match" />
+                </RadzenFormField>
+
+                <RadzenFormField Text="Role" Variant="Variant.Filled">
+                    <RadzenDropDown @bind-Value="@registrationModel.Role"
+                                    Data="@roles"
+                                    Name="Role"
+                                    TextProperty="Text"
+                                    ValueProperty="Value" />
+                    <RadzenRequiredValidator Component="Role" Text="Role is required" />
+                </RadzenFormField>
+
+                <RadzenButton ButtonType="ButtonType.Submit"
+                              Text="Create Account"
+                              Icon="person_add"
+                              BusyText="Creating Account..."
+                              IsBusy="@isBusy"
+                              ButtonStyle="ButtonStyle.Primary"
+                              Size="ButtonSize.Large"
+                              class="rz-mt-4 rz-w-100" />
+
+                <div class="rz-text-align-center rz-mt-4">
+                    <RadzenLink Path="login" Text="Already have an account? Log in" />
+                </div>
+            </RadzenStack>
+        </RadzenTemplateForm>
+    </RadzenCard>
+</RadzenStack>
+
+@code {
+    private RegistrationModel registrationModel = new();
+    private bool isBusy = false;
+    private string errorMessage = string.Empty;
+    private string successMessage = string.Empty;
+
+    private List<object> roles = new List<object>
+    {
+        new { Text = "Student", Value = "student" },
+        new { Text = "Teacher", Value = "teacher" }
+    };
+
+    private async Task HandleRegistration()
+    {
+        errorMessage = string.Empty;
+        successMessage = string.Empty;
+        isBusy = true;
+
+        try
+        {
+            var response = await Http.PostAsJsonAsync("http://localhost:5112/api/auth/register", new
+            {
+                Name = registrationModel.Name,
+                Email = registrationModel.Email,
+                Password = registrationModel.Password,
+                Role = registrationModel.Role
+            });
+
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadFromJsonAsync<RegistrationResponse>();
+
+
+                successMessage = "Account created successfully!";
+                await Task.Delay(1500);
+
+                NavigationManager.NavigateTo("/", false);
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Conflict)
+            {
+                errorMessage = "An account with this email already exists.";
+            }
+            else
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                errorMessage = $"Registration failed: {errorContent}";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error: {ex.Message}";
+        }
+        finally
+        {
+            isBusy = false;
+        }
+    }
+
+    public class RegistrationModel
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+        public string ConfirmPassword { get; set; } = string.Empty;
+        public string Role { get; set; } = "student";
+    }
+
+    public class RegistrationResponse
+    {
+        public int ID { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string Role { get; set; } = string.Empty;
+        public string Token { get; set; } = string.Empty;
+    }
+}

@@ -1,0 +1,36 @@
+﻿@using Radzen.Blazor
+@rendermode InteractiveServer
+@inject NavigationManager _nav
+@page "/"
+
+<PageTitle>Login</PageTitle>
+
+<RadzenCard class="rz-my-12 rz-mx-auto rz-p-4 rz-p-md-12" style="max-width: 600px;">
+    <div style="display: flex; justify-content: space-between;">
+        <!-- Image Section -->
+        <div style="flex: 1; padding-right: 20px;">
+            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp"
+                 style="width: 100%; height: auto; border-radius: 4px;" />
+        </div>
+
+        <!-- Form Section -->
+        <div style="flex: 1;">
+            <RadzenTemplateForm Data=@("SimpleLogin") Action="/home">
+                <RadzenLogin AllowRegister="false" AllowResetPassword="false" />
+            </RadzenTemplateForm>
+
+            <p class="rz-text-secondary rz-mt-4">Don't have an account?</p>
+            <RadzenButton Class="rz-mt-4"
+                          Text="Signup"
+                          ButtonStyle="ButtonStyle.Danger"
+                          Click="@NavigateToComponent" />
+        </div>
+    </div>
+</RadzenCard>
+
+@code {
+    private void NavigateToComponent()
+    {
+        _nav.NavigateTo("signup");
+    }
+}
