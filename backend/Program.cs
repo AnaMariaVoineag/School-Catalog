@@ -93,5 +93,6 @@ app.UseAuthorization();
 app.MapUserEndpoints();
 app.MapAuthEndpoints();
 app.MapGradeEndpoints();
+app.MapCourseEndpoints();
 
 app.Run();
