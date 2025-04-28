@@ -12,13 +12,24 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using SchoolCatalogProject.Features.Courses;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Configuration
-var jwtKey = builder.Configuration["Jwt:Key"] ?? throw new Exception("Missing config: Jwt:Key");
-var issuer = builder.Configuration["Jwt:Issuer"] ?? throw new Exception("Missing config: Jwt:Issuer");
+var jwtKey = builder.Configuration["Jwt:Key"] ?? throw new Exception("missing config: Jwt:Key");
+var issuer = builder.Configuration["Jwt:Issuer"] ?? throw new Exception("missing config: Jwt:Issuer");
 
+// Add this before configuring any other services
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 // Configure services
 builder.Services.AddDbContext<MariaDbContext>(opt =>
 {
@@ -26,73 +37,37 @@ builder.Services.AddDbContext<MariaDbContext>(opt =>
     opt.UseMySql(conString, ServerVersion.AutoDetect(conString));
 });
 
-// Add authentication with explicit scheme
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = issuer,
-            ValidAudience = issuer,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
-            NameClaimType = ClaimTypes.NameIdentifier,
-            RoleClaimType = ClaimTypes.Role
-        };
-    });
-
-// Add authorization with role policies
-builder.Services.AddAuthorization(options =>
+// Add authentication services
+builder.Services.AddAuthentication().AddJwtBearer(options =>
 {
-    options.AddPolicy("RequireTeacherRole", policy =>
-        policy.RequireRole("teacher"));
-
-    options.AddPolicy("RequireStudentRole", policy =>
-        policy.RequireRole("student"));
-
-    options.DefaultPolicy = new AuthorizationPolicyBuilder()
-        .RequireAuthenticatedUser()
-        .Build();
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = issuer,
+        ValidAudience = issuer,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+    };
 });
 
-// Add scoped password hasher (better for request lifecycle)
-builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
-
-// Add CORS if needed (adjust origins as necessary)
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowFrontend", policy =>
-    {
-        policy.WithOrigins("http://localhost:3000")
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
-});
+builder.Services.AddAuthorization();
+builder.Services.AddSingleton<IPasswordHasher<User>>(new PasswordHasher<User>());
 
 var app = builder.Build();
-
 /*
-    Middleware Pipeline
+    Middlewares 
 */
-if (app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-}
-
-app.UseCors("AllowFrontend");
-app.UseHttpsRedirection();
+app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
-
 /*
-    Route Endpoints
+    Routes 
 */
 app.MapUserEndpoints();
 app.MapAuthEndpoints();
-app.MapGradeEndpoints();
 app.MapCourseEndpoints();
-
+app.MapGradeEndpoints();
 app.Run();
+// DTOs and User model remain the same
