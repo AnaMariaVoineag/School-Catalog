@@ -1,7 +1,21 @@
-// components/CourseManagement.js
 import React, { useState, useEffect } from 'react';
 import { API_BASE_URL } from '../config';
 
+/**
+ * @file CourseManagement.js
+ * @brief Provides a UI for managing course data (create, edit, delete).
+ */
+
+/**
+ * @component
+ * @name CourseManagement
+ * @description
+ * Handles fetching, creating, updating, and deleting course data.
+ * Allows users to manage course information including name, semester,
+ * start date, and end date. Assumes authenticated access via bearer token.
+ *
+ * @returns {JSX.Element} A form for managing courses and a table of existing ones.
+ */
 function CourseManagement() {
     const [courses, setCourses] = useState([]);
     const [name, setName] = useState('');
@@ -17,6 +31,9 @@ function CourseManagement() {
         fetchCourses();
     }, []);
 
+    /**
+     * Fetch all courses from the API.
+     */
     const fetchCourses = async () => {
         try {
             const response = await fetch(API_BASE_URL + '/api/courses', {
@@ -37,6 +54,11 @@ function CourseManagement() {
         }
     };
 
+    /**
+     * Submit handler for creating or updating a course.
+     *
+     * @param {Event} e - Form submission event
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
@@ -77,6 +99,11 @@ function CourseManagement() {
         }
     };
 
+    /**
+     * Delete a course by ID.
+     *
+     * @param {number|string} id - Course ID
+     */
     const deleteCourse = async (id) => {
         try {
             const response = await fetch(API_BASE_URL + `/api/courses/${id}`, {
@@ -97,6 +124,11 @@ function CourseManagement() {
         }
     };
 
+    /**
+     * Populate form fields for editing a course.
+     *
+     * @param {Object} course - Course object to edit
+     */
     const editCourse = (course) => {
         setEditingCourse(course);
         setName(course.name);
@@ -105,6 +137,9 @@ function CourseManagement() {
         setEndDate(course.endDate ? course.endDate.substring(0, 10) : '');
     };
 
+    /**
+     * Reset form fields and editing state.
+     */
     const resetForm = () => {
         setName('');
         setSemester('');

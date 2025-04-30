@@ -6,11 +6,21 @@ using System.Security.Claims;
 
 namespace backend.Features.Grades
 {
+    /// \class GradeEndpoints
+    /// \brief Contains API endpoint mappings for grade-related operations such as saving, retrieving, and deleting grades.
     public static class GradeEndpoints
     {
+        /// \brief Maps the grade-related API endpoints to the WebApplication instance.
+        /// \param app The WebApplication instance to which the endpoints are mapped.
+        /// \return The WebApplication instance with the grade-related endpoints mapped.
         public static WebApplication MapGradeEndpoints(this WebApplication app)
         {
             // Save grade (Teacher only)
+            /// \brief Endpoint for saving a grade for a student (restricted to teachers).
+            /// 
+            /// This endpoint allows teachers to assign grades to students. It requires the user to have a "teacher" role.
+            /// \param gradeDto The grade details to be assigned.
+            /// \return HTTP 201 Created with the created grade if successful, or HTTP 403 Forbidden if the user is not a teacher.
             app.MapPost("/api/grades", [Authorize(Roles = "teacher")] async (
                 [FromBody] GradeDto gradeDto,
                 MariaDbContext db,
@@ -40,6 +50,12 @@ namespace backend.Features.Grades
             });
 
             // Get grades (Student sees own, Teacher sees all)
+            /// \brief Endpoint for retrieving grades.
+            ///
+            /// This endpoint returns grades based on the user's role. Students can only see their own grades, 
+            /// while teachers can view grades for all students within a specified course (optional).
+            /// \param courseId The optional course ID to filter grades by course (only for teachers).
+            /// \return HTTP 200 OK with the list of grades, or HTTP 403 Forbidden if the user is not authorized.
             app.MapGet("/api/grades", [Authorize] async (
                 MariaDbContext db,
                 [FromQuery] int? courseId,
@@ -70,6 +86,11 @@ namespace backend.Features.Grades
             });
 
             // Delete grade (Teacher only)
+            /// \brief Endpoint for deleting a grade (restricted to teachers).
+            ///
+            /// This endpoint allows teachers to delete grades they have assigned. It ensures the user is the teacher who assigned the grade.
+            /// \param id The ID of the grade to be deleted.
+            /// \return HTTP 204 No Content if successful, or HTTP 403 Forbidden or HTTP 404 Not Found if unauthorized or grade doesn't exist.
             app.MapDelete("/api/grades/{id:int}", [Authorize(Roles = "teacher")] async (
                 int id,
                 MariaDbContext db,

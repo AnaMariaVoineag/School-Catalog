@@ -1,11 +1,31 @@
-// components/GradeManagement.js
 import React, { useState, useEffect } from 'react';
 import { API_BASE_URL } from '../config';
 
+/**
+ * @file GradeManagement.js
+ * @brief Component for managing grades, including fetching, adding, and deleting.
+ */
+
+/**
+ * @component
+ * @name GradeManagement
+ * @description
+ * Admin/teacher interface for managing student grades within courses.
+ * Allows selecting a course, adding new grades, and deleting existing ones.
+ *
+ * @returns {JSX.Element} The grade management interface.
+ */
 function GradeManagement() {
+    /// List of all grades for the selected course
     const [grades, setGrades] = useState([]);
+
+    /// List of all courses available to the teacher
     const [courses, setCourses] = useState([]);
+
+    /// List of all students
     const [students, setStudents] = useState([]);
+
+    /// Form input data for creating a new grade
     const [formData, setFormData] = useState({
         value: '',
         gradeType: '',
@@ -13,30 +33,38 @@ function GradeManagement() {
         studentId: '',
         courseId: ''
     });
+
+    /// Currently selected course ID
     const [selectedCourse, setSelectedCourse] = useState('');
+
+    /// Error message string
     const [error, setError] = useState('');
 
+    /// Token for authorization
     const token = localStorage.getItem('token');
 
+    // Fetch course and student data on initial render
     useEffect(() => {
         fetchCourses();
         fetchStudents();
     }, []);
 
+    // Fetch grades when a course is selected
     useEffect(() => {
         if (selectedCourse) {
             fetchGrades(selectedCourse);
         }
     }, [selectedCourse]);
 
+    /**
+     * @function fetchCourses
+     * @description Fetches available courses from the API.
+     */
     const fetchCourses = async () => {
         try {
             const response = await fetch(API_BASE_URL + '/courses', {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
+                headers: { 'Authorization': `Bearer ${token}` }
             });
-
             if (response.ok) {
                 const data = await response.json();
                 setCourses(data);
@@ -46,16 +74,16 @@ function GradeManagement() {
         }
     };
 
+    /**
+     * @function fetchStudents
+     * @description Fetches student list from the API.
+     * Note: Endpoint `/api/students` must be implemented in the backend.
+     */
     const fetchStudents = async () => {
         try {
-            // This endpoint is not provided in your backend files
-            // You would need to implement it or modify this approach
             const response = await fetch(API_BASE_URL + '/api/students', {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
+                headers: { 'Authorization': `Bearer ${token}` }
             });
-
             if (response.ok) {
                 const data = await response.json();
                 setStudents(data);
@@ -65,14 +93,16 @@ function GradeManagement() {
         }
     };
 
+    /**
+     * @function fetchGrades
+     * @description Fetches grades for a specific course.
+     * @param {string} courseId - ID of the course to fetch grades for.
+     */
     const fetchGrades = async (courseId) => {
         try {
-            const response = await fetch(API_BASE_URL + `/api/grades?courseId=${courseId}`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
+            const response = await fetch(`${API_BASE_URL}/api/grades?courseId=${courseId}`, {
+                headers: { 'Authorization': `Bearer ${token}` }
             });
-
             if (response.ok) {
                 const data = await response.json();
                 setGrades(data);
@@ -82,14 +112,22 @@ function GradeManagement() {
         }
     };
 
+    /**
+     * @function handleInputChange
+     * @description Handles form input change and updates `formData`.
+     * @param {Event} e - The input change event.
+     */
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
+        setFormData({ ...formData, [name]: value });
     };
 
+    /**
+     * @function handleSubmit
+     * @async
+     * @description Submits new grade data to the API and refreshes the grade list.
+     * @param {Event} e - The form submit event.
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
@@ -106,9 +144,7 @@ function GradeManagement() {
 
             if (response.ok) {
                 resetForm();
-                if (selectedCourse) {
-                    fetchGrades(selectedCourse);
-                }
+                if (selectedCourse) fetchGrades(selectedCourse);
             } else {
                 setError('Failed to save grade');
             }
@@ -118,19 +154,20 @@ function GradeManagement() {
         }
     };
 
+    /**
+     * @function deleteGrade
+     * @description Deletes a grade by ID.
+     * @param {string} id - The ID of the grade to delete.
+     */
     const deleteGrade = async (id) => {
         try {
-            const response = await fetch(API_BASE_URL + `/api/grades/${id}`, {
+            const response = await fetch(`${API_BASE_URL}/api/grades/${id}`, {
                 method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
+                headers: { 'Authorization': `Bearer ${token}` }
             });
 
-            if (response.ok) {
-                if (selectedCourse) {
-                    fetchGrades(selectedCourse);
-                }
+            if (response.ok && selectedCourse) {
+                fetchGrades(selectedCourse);
             } else {
                 setError('Failed to delete grade');
             }
@@ -140,6 +177,10 @@ function GradeManagement() {
         }
     };
 
+    /**
+     * @function resetForm
+     * @description Resets the grade form input values.
+     */
     const resetForm = () => {
         setFormData({
             value: '',

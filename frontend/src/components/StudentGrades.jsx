@@ -1,17 +1,45 @@
-// components/StudentGrades.js
 import React, { useState, useEffect } from 'react';
 import { API_BASE_URL } from '../config';
 
+/**
+ * @file StudentGrades.js
+ * @brief Component to display a student's grades grouped by course.
+ */
+
+/**
+ * @component
+ * @name StudentGrades
+ * @description 
+ * Fetches and displays the student's grades, grouped by course. 
+ * Handles loading errors and organizes the data in a table format per course.
+ * 
+ * @returns {JSX.Element} Rendered component displaying student grades.
+ */
 function StudentGrades() {
+    /// State to store fetched grades
     const [grades, setGrades] = useState([]);
+
+    /// State to store any error message from the fetch operation
     const [error, setError] = useState('');
 
+    /// Authentication token retrieved from local storage
     const token = localStorage.getItem('token');
 
+    /**
+     * @function useEffect
+     * @description Triggers the initial grade fetch on component mount.
+     */
     useEffect(() => {
         fetchGrades();
     }, []);
 
+    /**
+     * @function fetchGrades
+     * @async
+     * @description 
+     * Asynchronously fetches grades from the API and updates component state.
+     * Sets an error message if the request fails.
+     */
     const fetchGrades = async () => {
         try {
             const response = await fetch(API_BASE_URL + '/api/grades', {
@@ -32,7 +60,12 @@ function StudentGrades() {
         }
     };
 
-    // Group grades by course
+    /**
+     * @var gradesByCourse
+     * @description 
+     * Groups grades by the associated course ID. Each entry contains
+     * course information and the list of related grades.
+     */
     const gradesByCourse = grades.reduce((acc, grade) => {
         const courseId = grade.course?.id || 'unknown';
         if (!acc[courseId]) {
@@ -45,6 +78,7 @@ function StudentGrades() {
         return acc;
     }, {});
 
+    // Render the grouped grades or an error/no data message
     return (
         <div className="student-grades">
             <h2>My Grades</h2>

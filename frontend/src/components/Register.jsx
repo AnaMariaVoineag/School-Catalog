@@ -1,15 +1,49 @@
-// components/Register.js
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { API_BASE_URL } from '../config';
 
+/**
+ * @file Register.js
+ * @brief Component that provides user registration functionality.
+ */
+
+/**
+ * @component
+ * @name Register
+ * @description
+ * Renders a registration form where users can enter their name, email, password,
+ * and role (student or teacher). On successful registration, it triggers a login callback.
+ *
+ * @param {Object} props
+ * @param {Function} props.onLogin - Callback function invoked with token upon successful registration.
+ *
+ * @returns {JSX.Element} The registration form component.
+ */
 function Register({ onLogin }) {
+    /// State to store user-entered name
     const [name, setName] = useState('');
+
+    /// State to store user-entered email
     const [email, setEmail] = useState('');
+
+    /// State to store user-entered password
     const [password, setPassword] = useState('');
+
+    /// State to store selected user role (student or teacher)
     const [role, setRole] = useState('student');
+
+    /// State to hold any registration-related error message
     const [error, setError] = useState('');
 
+    /**
+     * @function handleSubmit
+     * @async
+     * @description
+     * Handles form submission by sending a registration request to the API.
+     * Updates the error state on failure or calls `onLogin` on success.
+     *
+     * @param {Event} e - Form submit event
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
@@ -42,6 +76,7 @@ function Register({ onLogin }) {
         }
     };
 
+    // Render the registration form
     return (
         <div className="auth-form">
             <h2>Register</h2>
