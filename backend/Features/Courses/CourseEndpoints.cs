@@ -1,6 +1,6 @@
+using backend.Data;
 using Microsoft.EntityFrameworkCore;
-using SchoolCatalogProject.Data;
-using SchoolCatalogProject.Entities;
+using SchoolCatalogProject;
 
 namespace SchoolCatalogProject.Features.Courses
 {
@@ -8,7 +8,7 @@ namespace SchoolCatalogProject.Features.Courses
     {
         public static void MapCourseEndpoints(this IEndpointRouteBuilder routes)
         {
-            var group = routes.MapGroup("/courses");
+            var group = routes.MapGroup("/api/courses");
 
             // Create Course
             group.MapPost("/", async (Course course, MariaDbContext db) =>
@@ -24,8 +24,7 @@ namespace SchoolCatalogProject.Features.Courses
                 var course = await db.Courses.FindAsync(id);
                 if (course == null) return Results.NotFound();
 
-                course.Title = updatedCourse.Title;
-                course.Description = updatedCourse.Description;
+                course.Name = updatedCourse.Name;
                 // update other fields if needed
 
                 await db.SaveChangesAsync();
