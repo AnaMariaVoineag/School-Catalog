@@ -15,4 +15,3 @@ namespace backend.Features.Users
         public record UserUpdateDto(string? Name = null, string? Email = null);
     }
 }
-s

@@ -78,3 +78,21 @@ namespace backend.Features.Users
             app.MapDelete("/api/users/{id:int}", [Authorize] async (
                 int id,
                 MariaDbContext db,
+                ClaimsPrincipal claims) =>
+            {
+                var userIdClaim = claims.FindFirst(ClaimTypes.NameIdentifier);
+                if (userIdClaim == null || int.Parse(userIdClaim.Value) != id)
+                    return Results.Forbid();
+
+                var user = await db.Users.FindAsync(id);
+                if (user == null)
+                    return Results.NotFound();
+
+                db.Users.Remove(user);
+                await db.SaveChangesAsync();
+                return Results.NoContent();
+            });
+            return app;
+        }
+    }
+}
